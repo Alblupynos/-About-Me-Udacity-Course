@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.udacity.colormyviews.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,31 +18,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
-        val clikableViews: List<View> =
-            listOf(box_one_text, box_two_text, box_three_text,
-                box_four_text, box_five_text, constraint_layout,
-                red_button, yellow_button, green_button)
+        val clikableViews: List<View> = binding.run {
+            listOf(
+                boxOneText, boxTwoText, boxThreeText,
+                boxFourText, boxFiveText, constraintLayout,
+                redButton, yellowButton, greenButton
+            )
+        }
         for (item in clikableViews) {
             item.setOnClickListener {makeColored(it)}
         }
     }
 
     fun makeColored(view: View) {
-        when (view.id) {
+        when (view) {
 
             // Boxes using Color class colors for background
-            binding.boxOneText.id -> view.setBackgroundColor(Color.DKGRAY)
-            binding.boxTwoText.id-> view.setBackgroundColor(Color.GRAY)
+            binding.boxOneText -> view.setBackgroundColor(Color.DKGRAY)
+            binding.boxTwoText-> view.setBackgroundColor(Color.GRAY)
 
             // Boxes using Android color resources for background
-            binding.boxThreeText.id -> view.setBackgroundResource(android.R.color.holo_green_light)
-            binding.boxFourText.id -> view.setBackgroundResource(android.R.color.holo_green_dark)
-            binding.boxFiveText.id -> view.setBackgroundResource(android.R.color.holo_green_light)
+            binding.boxThreeText -> view.setBackgroundResource(android.R.color.holo_green_light)
+            binding.boxFourText -> view.setBackgroundResource(android.R.color.holo_green_dark)
+            binding.boxFiveText -> view.setBackgroundResource(android.R.color.holo_green_light)
 
             // Boxes using custom colors for background
-            binding.redButton.id -> box_three_text.setBackgroundResource(R.color.my_red)
-            binding.yellowButton.id -> box_four_text.setBackgroundResource(R.color.my_yellow)
-            binding.greenButton.id -> box_five_text.setBackgroundResource(R.color.my_green)
+            binding.redButton -> binding.boxThreeText.setBackgroundResource(R.color.my_red)
+            binding.yellowButton -> binding.boxFourText.setBackgroundResource(R.color.my_yellow)
+            binding.greenButton -> binding.boxFiveText.setBackgroundResource(R.color.my_green)
 
             else -> view.setBackgroundColor(Color.LTGRAY)
         }
